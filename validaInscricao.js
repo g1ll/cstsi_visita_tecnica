@@ -1,11 +1,11 @@
 #!/bin/node
 const fs = require("fs/promises");
 const csvAlunosAtivos = "csv/ListaAlunos_CSTSI.csv"
-const csvInscritos = "csv/Inscricoes.csv"
+const csvInscritos = 'csv/InscricoesMelhorEnvio_20221130_1723.csv'
 let inscritos = []
 let ativos = []
 let validos = []
-let limitAlunos = 7
+let limitAlunos = 35
 
 const csvToArray = (data,sep=',') => {
 	let array = []

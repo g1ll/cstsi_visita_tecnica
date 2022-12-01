@@ -2,9 +2,9 @@
 # import pandas as pd
 from pandas import read_csv, DataFrame
 
-limiteAlunos = 7
+limiteAlunos = 35
 alunosAtivos = read_csv('csv/ListaAlunos_CSTSI.csv')
-alunosInscritos = read_csv('csv/Inscricoes.csv')
+alunosInscritos = read_csv('csv/InscricoesMelhorEnvio_20221130_1723.csv')
 nomes = []
 matriculas = []
 aluno = DataFrame({})
