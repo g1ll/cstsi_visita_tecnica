@@ -1,8 +1,8 @@
 #!/bin/php
 <?php
-$alunosInscritos = fopen('csv/InscricoesMelhorEnvio_20221130_1723.csv', 'r');
+$alunosInscritos = fopen('csv/InscricoesMelhorEnvio_20221202.csv', 'r');
 $alunosAtivos = fopen('csv/ListaAlunos_CSTSI.csv', 'r');
-$csvConfirmadosFileName = "csv/confirmados_cosie_" . date('Ymd_His') . ".csv";
+$csvConfirmadosFileName = "csv/confirmados_geral_" . date('Ymd_His') . ".csv";
 $alunosValidos = [];
 $alunosInvalidos = [];
 $limiteAlunos = 35;
@@ -85,9 +85,9 @@ $csvFileTemp = fopen($csvFileName, 'w+');
 $csvFileConfirmados = fopen($csvConfirmadosFileName, 'w');
 if ($csvFileTemp && $csvFileConfirmados) {
 	fputcsv($csvFileTemp, [
-		// '"semestre"',
-		// '"matricula"',
-		// '"data-hora"',
+		'"semestre"',
+		'"matricula"',
+		'"data-hora"',
 		'"nome"',
 		'"rg"',
 		'"cpf"',
@@ -95,10 +95,8 @@ if ($csvFileTemp && $csvFileConfirmados) {
 		'"atestado"'
 	], $separadorCsv);
 	foreach ($alunosConfirmados as $matricula => $alunos) {
-		// array_unshift($alunos, $matricula);
-		// array_unshift($alunos, array_pop($alunos));
-		array_shift($alunos);
-		array_pop($alunos);
+		array_unshift($alunos, $matricula);
+		array_unshift($alunos, array_pop($alunos));
 		$alunos = array_map(fn ($value) => "\"$value\"", $alunos);
 		fputcsv(
 			$csvFileTemp,
@@ -114,19 +112,19 @@ if ($csvFileTemp && $csvFileConfirmados) {
 	fclose($csvFileTemp);
 	fclose($csvFileConfirmados);
 	unlink($csvFileName);
-
-	echo "Válidos:\n";
-	print_r($alunosValidos);
-
-	echo "Confirmados:\n";
-	print_r($alunosConfirmados);
-
-	echo "Invalidos:\n";
-	print_r($alunosInvalidos);
-
-	echo "Qtd. alunos inválidos: " . count($alunosInvalidos) . "\n";
-	echo "Qtd. alunos válidos: " . count($alunosValidos) . "\n";
-	echo "Qtd. alunos confirmados: " . count($alunosConfirmados) . "\n";
 } else {
 	echo "Erro ao escrever CSV de confirmacao...";
 }
+
+echo "Válidos:\n";
+print_r($alunosValidos);
+
+echo "Confirmados:\n";
+print_r($alunosConfirmados);
+
+echo "Invalidos:\n";
+print_r($alunosInvalidos);
+
+echo "Qtd. alunos inválidos: " . count($alunosInvalidos) . "\n";
+echo "Qtd. alunos válidos: " . count($alunosValidos) . "\n";
+echo "Qtd. alunos confirmados: " . count($alunosConfirmados) . "\n";
