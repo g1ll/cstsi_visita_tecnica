@@ -59,7 +59,7 @@ if (count($alunosInvalidos) > 0) {
 			$separadorCsv
 		))) {
 			if (strtolower($aluno["nome"]) == strtolower($ativo[1])) {
-				$alunosValidos[$matricula] = $aluno;
+				$alunosValidos[$ativo[2]] = $aluno;
 				unset($alunosInvalidos[$matricula]);
 			}
 		}
